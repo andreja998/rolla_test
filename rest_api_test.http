@@ -1,0 +1,8 @@
+# GET https://dummyjson.com/products/search?q=phone&limit=2&skip=2
+
+POST https://dummyjson.com/auth/refresh
+Content-Type: application/json
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhdHVueTAiLCJlbWFpbCI6ImF0dW55MEBzb2h1LmNvbSIsImZpcnN0TmFtZSI6IlRlcnJ5IiwibGFzdE5hbWUiOiJNZWRodXJzdCIsImdlbmRlciI6Im1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vcm9ib2hhc2gub3JnL1RlcnJ5LnBuZz9zZXQ9c2V0NCIsImlhdCI6MTcxMjY2NjQ1MCwiZXhwIjoxNzEyNjcwMDUwfQ.zUXFLBLZTmhwraRG1d4--r-tRO5BZSWKBuASV4l8JR0'
+{
+    expiresInMins: 30
+}

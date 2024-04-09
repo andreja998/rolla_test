@@ -10,23 +10,22 @@ class AppTheme {
   ThemeData get themeData {
     // switch (F.appFlavor) {
     //   case Flavor.development:
-        return ThemeData(brightness: _brightness).copyWith(
-          colorScheme: ColorScheme.fromSeed(
+    return ThemeData(brightness: _brightness).copyWith(
+      colorScheme: ColorScheme.fromSeed(
         seedColor: Colors.purple,
-        
         brightness: Brightness.dark,
       ),
-          useMaterial3: true,
-        );
-      // case Flavor.production:
-      //   return ThemeData(brightness: _brightness).copyWith(
-      //     colorScheme: _colorScheme(Colors.blue),
-      //     useMaterial3: true,
-      //   );
-      // default:
-      //   return ThemeData(brightness: _brightness).copyWith(
-      //     colorScheme: _colorScheme(Colors.red),
-      //     useMaterial3: true,
-      //   );
-    }
+      useMaterial3: true,
+    );
+    // case Flavor.production:
+    //   return ThemeData(brightness: _brightness).copyWith(
+    //     colorScheme: _colorScheme(Colors.blue),
+    //     useMaterial3: true,
+    //   );
+    // default:
+    //   return ThemeData(brightness: _brightness).copyWith(
+    //     colorScheme: _colorScheme(Colors.red),
+    //     useMaterial3: true,
+    //   );
   }
+}

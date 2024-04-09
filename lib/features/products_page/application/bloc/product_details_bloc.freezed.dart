@@ -16,19 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ProductDetailsEvent {
+  String get query => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getProducts,
+    required TResult Function(String query) getProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getProducts,
+    TResult? Function(String query)? getProducts,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getProducts,
+    TResult Function(String query)? getProducts,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +49,10 @@ mixin _$ProductDetailsEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ProductDetailsEventCopyWith<ProductDetailsEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +60,8 @@ abstract class $ProductDetailsEventCopyWith<$Res> {
   factory $ProductDetailsEventCopyWith(
           ProductDetailsEvent value, $Res Function(ProductDetailsEvent) then) =
       _$ProductDetailsEventCopyWithImpl<$Res, ProductDetailsEvent>;
+  @useResult
+  $Res call({String query});
 }
 
 /// @nodoc
@@ -66,13 +73,30 @@ class _$ProductDetailsEventCopyWithImpl<$Res, $Val extends ProductDetailsEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_value.copyWith(
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_GetProductsCopyWith<$Res> {
+abstract class _$$_GetProductsCopyWith<$Res>
+    implements $ProductDetailsEventCopyWith<$Res> {
   factory _$$_GetProductsCopyWith(
           _$_GetProducts value, $Res Function(_$_GetProducts) then) =
       __$$_GetProductsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String query});
 }
 
 /// @nodoc
@@ -82,51 +106,75 @@ class __$$_GetProductsCopyWithImpl<$Res>
   __$$_GetProductsCopyWithImpl(
       _$_GetProducts _value, $Res Function(_$_GetProducts) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? query = null,
+  }) {
+    return _then(_$_GetProducts(
+      null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_GetProducts implements _GetProducts {
-  const _$_GetProducts();
+  const _$_GetProducts(this.query);
+
+  @override
+  final String query;
 
   @override
   String toString() {
-    return 'ProductDetailsEvent.getProducts()';
+    return 'ProductDetailsEvent.getProducts(query: $query)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetProducts);
+        (other.runtimeType == runtimeType &&
+            other is _$_GetProducts &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, query);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_GetProductsCopyWith<_$_GetProducts> get copyWith =>
+      __$$_GetProductsCopyWithImpl<_$_GetProducts>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() getProducts,
+    required TResult Function(String query) getProducts,
   }) {
-    return getProducts();
+    return getProducts(query);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getProducts,
+    TResult? Function(String query)? getProducts,
   }) {
-    return getProducts?.call();
+    return getProducts?.call(query);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getProducts,
+    TResult Function(String query)? getProducts,
     required TResult orElse(),
   }) {
     if (getProducts != null) {
-      return getProducts();
+      return getProducts(query);
     }
     return orElse();
   }
@@ -161,14 +209,24 @@ class _$_GetProducts implements _GetProducts {
 }
 
 abstract class _GetProducts implements ProductDetailsEvent {
-  const factory _GetProducts() = _$_GetProducts;
+  const factory _GetProducts(final String query) = _$_GetProducts;
+
+  @override
+  String get query;
+  @override
+  @JsonKey(ignore: true)
+  _$$_GetProductsCopyWith<_$_GetProducts> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 mixin _$ProductDetailsState {
   bool get isLoading => throw _privateConstructorUsedError;
-  Option<Either<ProductsFailure, Unit>> get failureOrSuccessOption =>
+  Option<Either<ProductsFailure, ProductsModel>> get failureOrSuccessOption =>
       throw _privateConstructorUsedError;
+  int get curPage => throw _privateConstructorUsedError;
+  bool get loadingNextPage => throw _privateConstructorUsedError;
+  List<Product> get products => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductDetailsStateCopyWith<ProductDetailsState> get copyWith =>
@@ -183,7 +241,10 @@ abstract class $ProductDetailsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {bool isLoading,
-      Option<Either<ProductsFailure, Unit>> failureOrSuccessOption});
+      Option<Either<ProductsFailure, ProductsModel>> failureOrSuccessOption,
+      int curPage,
+      bool loadingNextPage,
+      List<Product> products});
 }
 
 /// @nodoc
@@ -201,6 +262,9 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
   $Res call({
     Object? isLoading = null,
     Object? failureOrSuccessOption = null,
+    Object? curPage = null,
+    Object? loadingNextPage = null,
+    Object? products = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -210,7 +274,19 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
       failureOrSuccessOption: null == failureOrSuccessOption
           ? _value.failureOrSuccessOption
           : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ProductsFailure, Unit>>,
+              as Option<Either<ProductsFailure, ProductsModel>>,
+      curPage: null == curPage
+          ? _value.curPage
+          : curPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      loadingNextPage: null == loadingNextPage
+          ? _value.loadingNextPage
+          : loadingNextPage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      products: null == products
+          ? _value.products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
     ) as $Val);
   }
 }
@@ -225,7 +301,10 @@ abstract class _$$_ProductDetailsStateCopyWith<$Res>
   @useResult
   $Res call(
       {bool isLoading,
-      Option<Either<ProductsFailure, Unit>> failureOrSuccessOption});
+      Option<Either<ProductsFailure, ProductsModel>> failureOrSuccessOption,
+      int curPage,
+      bool loadingNextPage,
+      List<Product> products});
 }
 
 /// @nodoc
@@ -241,6 +320,9 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? failureOrSuccessOption = null,
+    Object? curPage = null,
+    Object? loadingNextPage = null,
+    Object? products = null,
   }) {
     return _then(_$_ProductDetailsState(
       isLoading: null == isLoading
@@ -250,7 +332,19 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
       failureOrSuccessOption: null == failureOrSuccessOption
           ? _value.failureOrSuccessOption
           : failureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<ProductsFailure, Unit>>,
+              as Option<Either<ProductsFailure, ProductsModel>>,
+      curPage: null == curPage
+          ? _value.curPage
+          : curPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      loadingNextPage: null == loadingNextPage
+          ? _value.loadingNextPage
+          : loadingNextPage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      products: null == products
+          ? _value._products
+          : products // ignore: cast_nullable_to_non_nullable
+              as List<Product>,
     ));
   }
 }
@@ -259,16 +353,32 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
 
 class _$_ProductDetailsState implements _ProductDetailsState {
   const _$_ProductDetailsState(
-      {required this.isLoading, required this.failureOrSuccessOption});
+      {required this.isLoading,
+      required this.failureOrSuccessOption,
+      required this.curPage,
+      required this.loadingNextPage,
+      required final List<Product> products})
+      : _products = products;
 
   @override
   final bool isLoading;
   @override
-  final Option<Either<ProductsFailure, Unit>> failureOrSuccessOption;
+  final Option<Either<ProductsFailure, ProductsModel>> failureOrSuccessOption;
+  @override
+  final int curPage;
+  @override
+  final bool loadingNextPage;
+  final List<Product> _products;
+  @override
+  List<Product> get products {
+    if (_products is EqualUnmodifiableListView) return _products;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_products);
+  }
 
   @override
   String toString() {
-    return 'ProductDetailsState(isLoading: $isLoading, failureOrSuccessOption: $failureOrSuccessOption)';
+    return 'ProductDetailsState(isLoading: $isLoading, failureOrSuccessOption: $failureOrSuccessOption, curPage: $curPage, loadingNextPage: $loadingNextPage, products: $products)';
   }
 
   @override
@@ -279,12 +389,21 @@ class _$_ProductDetailsState implements _ProductDetailsState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.failureOrSuccessOption, failureOrSuccessOption) ||
-                other.failureOrSuccessOption == failureOrSuccessOption));
+                other.failureOrSuccessOption == failureOrSuccessOption) &&
+            (identical(other.curPage, curPage) || other.curPage == curPage) &&
+            (identical(other.loadingNextPage, loadingNextPage) ||
+                other.loadingNextPage == loadingNextPage) &&
+            const DeepCollectionEquality().equals(other._products, _products));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, isLoading, failureOrSuccessOption);
+  int get hashCode => Object.hash(
+      runtimeType,
+      isLoading,
+      failureOrSuccessOption,
+      curPage,
+      loadingNextPage,
+      const DeepCollectionEquality().hash(_products));
 
   @JsonKey(ignore: true)
   @override
@@ -297,13 +416,22 @@ class _$_ProductDetailsState implements _ProductDetailsState {
 abstract class _ProductDetailsState implements ProductDetailsState {
   const factory _ProductDetailsState(
       {required final bool isLoading,
-      required final Option<Either<ProductsFailure, Unit>>
-          failureOrSuccessOption}) = _$_ProductDetailsState;
+      required final Option<Either<ProductsFailure, ProductsModel>>
+          failureOrSuccessOption,
+      required final int curPage,
+      required final bool loadingNextPage,
+      required final List<Product> products}) = _$_ProductDetailsState;
 
   @override
   bool get isLoading;
   @override
-  Option<Either<ProductsFailure, Unit>> get failureOrSuccessOption;
+  Option<Either<ProductsFailure, ProductsModel>> get failureOrSuccessOption;
+  @override
+  int get curPage;
+  @override
+  bool get loadingNextPage;
+  @override
+  List<Product> get products;
   @override
   @JsonKey(ignore: true)
   _$$_ProductDetailsStateCopyWith<_$_ProductDetailsState> get copyWith =>

@@ -1,10 +1,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
+import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
+import 'package:rolla_zadatak/features/products_page/domain/entities/products_model/product.dart';
 
-@RoutePage(name: 'ProductsRouter')      
-class ProductsRouterPage extends AutoRouter {} 
+@RoutePage(name: 'ProductsRouter')
+class ProductsRouterPage extends AutoRouter {}
 
 @RoutePage()
 class ProductsPage extends StatefulWidget {
@@ -15,8 +20,88 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts(''));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Text('Products'),);
+    return Scaffold(
+      body: BlocConsumer<ProductDetailsBloc, ProductDetailsState>(
+        listener: (context, state) {
+          state.failureOrSuccessOption.fold(
+              () {},
+              (either) => either.fold((failure) {
+                    FlushbarHelper.createError(
+                        message: failure.map(
+                      serverError: (_) => 'Server error',
+                      // invalidEmailAndPasswordCombination: (_) =>
+                      //     'Invalid email and password combination',
+                    )).show(context);
+                  }, (_) {
+                    // context.replaceRoute(const MainRoute());
+                    }));
+        },
+        builder: (context, state) {
+          if (state.products.length != 0) {
+            return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ListView.separated(
+              itemBuilder: (context, index) {
+                return buildProductItem(state.products[index]);
+              }, 
+              separatorBuilder: (context, index) {
+                return Divider(color: Colors.grey[400],);
+              }, 
+              itemCount: state.products.length)
+          );
+          } else {
+            state.failureOrSuccessOption.fold(
+              () {},
+              (either) { 
+                either.fold((failure) {
+                    return Padding(padding: EdgeInsets.all(16),
+            child: Text('Error loading products'),);
+                  }, (_) {
+                    // context.replaceRoute(const MainRoute());
+                    });});
+                    return Container();
+          }
+          
+//           state.failureOrSuccessOption.fold(() {
+            
+//           }, (either) {
+//             either.fold((l) {
+// return Padding(padding: EdgeInsets.all(16),
+//             child: Text('Error loading products'),);
+//             }, (r) {
+//               return Padding(
+//             padding: const EdgeInsets.all(16.0),
+//             child: ListView.separated(
+//               itemBuilder: (context, index) {
+//                 return buildProductItem(state.products[index]);
+//               }, 
+//               separatorBuilder: (context, index) {
+//                 return Divider(color: Colors.grey[400],);
+//               }, 
+//               itemCount: state.products.length)
+//           );
+//             });
+//           });
+//         },
+  }),
+    );
   }
+}
+
+Widget buildProductItem(Product product) {
+  return Column(children: [
+    Text(product.title),
+    SizedBox(height: 6,),
+    Text(product.category)
+  ],);
 }

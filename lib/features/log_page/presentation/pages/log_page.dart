@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-@RoutePage(name: 'LogRouter')      
-class LogRouterPage extends AutoRouter {} 
+@RoutePage(name: 'LogRouter')
+class LogRouterPage extends AutoRouter {}
 
 @RoutePage()
 class LogPage extends StatefulWidget {
