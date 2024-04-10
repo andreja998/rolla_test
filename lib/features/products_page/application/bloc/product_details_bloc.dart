@@ -68,11 +68,11 @@ class ProductDetailsBloc
       }
       
       result.fold((l) => {
-        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result)))
+        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), query: event.query))
       }, (productsModel) {
         List<Product> newProducts = [];
         var curPage = state.curPage;
-
+      
         if (productsModel.products != null) {
           if (event.nextPage == true) {
             newProducts = [...state.products, ...productsModel.products!];
@@ -82,7 +82,7 @@ class ProductDetailsBloc
           curPage++;
         }
         
-        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), curPage: curPage, products: newProducts));
+        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), curPage: curPage, products: newProducts, query: event.query));
       });
 
       // result.fold((l) => emit(ExposuresState.error(failure: ExposureFailure.serverError())), (r) => emit(ExposuresState.loaded(exposures: r)));

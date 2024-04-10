@@ -12,14 +12,14 @@ class PrimaryInput extends StatelessWidget {
   final TextEditingController? controller;
 
   const PrimaryInput(
-      {this.onChanged = null,
-      this.validator = null,
+      {this.onChanged,
+      this.validator,
       required this.labelText,
-      this.prefixIcon = null,
+      this.prefixIcon,
       this.hint = '',
       this.obscureText = false,
       this.textInputAction = TextInputAction.none,
-      this.controller = null});
+      this.controller});
 
   @override
   Widget build(BuildContext context) {

@@ -329,6 +329,7 @@ mixin _$ProductDetailsState {
   int get curPage => throw _privateConstructorUsedError;
   bool get loadingNextPage => throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
+  String get query => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ProductDetailsStateCopyWith<ProductDetailsState> get copyWith =>
@@ -346,7 +347,8 @@ abstract class $ProductDetailsStateCopyWith<$Res> {
       Option<Either<ProductsFailure, ProductsModel>> failureOrSuccessOption,
       int curPage,
       bool loadingNextPage,
-      List<Product> products});
+      List<Product> products,
+      String query});
 }
 
 /// @nodoc
@@ -367,6 +369,7 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
     Object? curPage = null,
     Object? loadingNextPage = null,
     Object? products = null,
+    Object? query = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -389,6 +392,10 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -406,7 +413,8 @@ abstract class _$$_ProductDetailsStateCopyWith<$Res>
       Option<Either<ProductsFailure, ProductsModel>> failureOrSuccessOption,
       int curPage,
       bool loadingNextPage,
-      List<Product> products});
+      List<Product> products,
+      String query});
 }
 
 /// @nodoc
@@ -425,6 +433,7 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
     Object? curPage = null,
     Object? loadingNextPage = null,
     Object? products = null,
+    Object? query = null,
   }) {
     return _then(_$_ProductDetailsState(
       isLoading: null == isLoading
@@ -447,6 +456,10 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      query: null == query
+          ? _value.query
+          : query // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -459,7 +472,8 @@ class _$_ProductDetailsState implements _ProductDetailsState {
       required this.failureOrSuccessOption,
       required this.curPage,
       required this.loadingNextPage,
-      required final List<Product> products})
+      required final List<Product> products,
+      required this.query})
       : _products = products;
 
   @override
@@ -479,8 +493,11 @@ class _$_ProductDetailsState implements _ProductDetailsState {
   }
 
   @override
+  final String query;
+
+  @override
   String toString() {
-    return 'ProductDetailsState(isLoading: $isLoading, failureOrSuccessOption: $failureOrSuccessOption, curPage: $curPage, loadingNextPage: $loadingNextPage, products: $products)';
+    return 'ProductDetailsState(isLoading: $isLoading, failureOrSuccessOption: $failureOrSuccessOption, curPage: $curPage, loadingNextPage: $loadingNextPage, products: $products, query: $query)';
   }
 
   @override
@@ -495,7 +512,8 @@ class _$_ProductDetailsState implements _ProductDetailsState {
             (identical(other.curPage, curPage) || other.curPage == curPage) &&
             (identical(other.loadingNextPage, loadingNextPage) ||
                 other.loadingNextPage == loadingNextPage) &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            (identical(other.query, query) || other.query == query));
   }
 
   @override
@@ -505,7 +523,8 @@ class _$_ProductDetailsState implements _ProductDetailsState {
       failureOrSuccessOption,
       curPage,
       loadingNextPage,
-      const DeepCollectionEquality().hash(_products));
+      const DeepCollectionEquality().hash(_products),
+      query);
 
   @JsonKey(ignore: true)
   @override
@@ -522,7 +541,8 @@ abstract class _ProductDetailsState implements ProductDetailsState {
           failureOrSuccessOption,
       required final int curPage,
       required final bool loadingNextPage,
-      required final List<Product> products}) = _$_ProductDetailsState;
+      required final List<Product> products,
+      required final String query}) = _$_ProductDetailsState;
 
   @override
   bool get isLoading;
@@ -534,6 +554,8 @@ abstract class _ProductDetailsState implements ProductDetailsState {
   bool get loadingNextPage;
   @override
   List<Product> get products;
+  @override
+  String get query;
   @override
   @JsonKey(ignore: true)
   _$$_ProductDetailsStateCopyWith<_$_ProductDetailsState> get copyWith =>

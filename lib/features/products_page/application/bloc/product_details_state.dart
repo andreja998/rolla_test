@@ -8,8 +8,9 @@ class ProductDetailsState with _$ProductDetailsState {
           failureOrSuccessOption,
       required int curPage,
       required bool loadingNextPage,
-      required List<Product> products}) = _ProductDetailsState;
+      required List<Product> products,
+      required String query}) = _ProductDetailsState;
 
   factory ProductDetailsState.initial() => ProductDetailsState(
-      isLoading: false, failureOrSuccessOption: Option.none(), curPage: 1, loadingNextPage: false, products: [],);
+      isLoading: false, failureOrSuccessOption: Option.none(), curPage: 1, loadingNextPage: false, products: [], query: '',);
 }

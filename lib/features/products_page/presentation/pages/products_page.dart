@@ -31,9 +31,16 @@ class _ProductsPageState extends State<ProductsPage> {
     // TODO: implement initState
     super.initState();
     scrolController.addListener(() {
+      final query = BlocProvider.of<ProductDetailsBloc>(context).state.query;
+    
       if (scrolController.offset >= scrolController.position.maxScrollExtent &&
         !scrolController.position.outOfRange) {
-      BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
+          // dodati logiku da vidi da li je query i njega da pozove
+      if (query.isEmpty) {
+          BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
+      } else {
+        BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getQueriedProducts(query, true));
+      }
     }
     });
     
