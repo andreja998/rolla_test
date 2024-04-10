@@ -41,10 +41,10 @@ class _LogPageState extends State<LogPage> {
             padding: const EdgeInsets.all(16.0),
             child: ListView.separated(
               itemBuilder: (context, index) {
-                return buildLogItem(log[index]);
+                return buildLogItem(log[index], context);
               }, 
               separatorBuilder: (context, index) {
-                return Divider(color: Colors.grey[400],);
+                return Container(height: 16.0,);
               }, 
               itemCount: log.length)
           );
@@ -56,10 +56,18 @@ class _LogPageState extends State<LogPage> {
   }
 }
 
-Widget buildLogItem(Log log) {
-  return Column(children: [
-    Text(log.actor?.login),
-    SizedBox(height: 6,),
-    Text(log.type ?? 'Unknown')
-  ],);
+Widget buildLogItem(Log log, BuildContext context) {
+  return Card(
+    color: Theme.of(context).cardColor,
+    child: Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(log.actor?.login, style: Theme.of(context).textTheme.titleLarge,),
+        SizedBox(height: 6,),
+        Text(log.type ?? 'Unknown', style: Theme.of(context).textTheme.bodyMedium,),
+        SizedBox(height: 6,),
+        Text(log.payload?.description ?? '', style: Theme.of(context).textTheme.bodySmall, maxLines: 5,)
+      ],),
+    ),
+  );
 }

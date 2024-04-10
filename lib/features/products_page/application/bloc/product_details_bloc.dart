@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -19,15 +20,15 @@ class ProductDetailsBloc
 
   ProductDetailsBloc() : super(ProductDetailsState.initial()) {
     on<_GetProducts>((event, emit) async {
-      // TODO: implement event handler
-      // var result = await exposureRepositoryInterface.getProducts();
+      if (state.isLoading) {
+        return;
+      }
+      emit(state.copyWith(isLoading: true));
       
       var skip = 0;
-      const limit = 10;
+      const limit = 15;
       if (state.curPage != 1) {
-        skip = state.curPage * 10;
-      } else {
-        emit(state.copyWith(isLoading: true));
+        skip = state.curPage * 15;
       }
 
       final result = await productDetailsRepositoryInterface.getProducts(skip, limit);
@@ -36,12 +37,14 @@ class ProductDetailsBloc
         emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result)))
       }, (productsModel) {
         List<Product> newProducts = [];
+        var curPage = state.curPage;
 
         if (productsModel.products != null) {
-          newProducts = productsModel.products!;
+          newProducts = [...state.products, ...productsModel.products!];
+          curPage++;
         }
-
-        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), curPage: state.curPage + 1, products: [...state.products, ...newProducts]));
+        
+        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), curPage: curPage, products: newProducts));
       });
 
       // result.fold((l) => emit(ExposuresState.error(failure: ExposureFailure.serverError())), (r) => emit(ExposuresState.loaded(exposures: r)));

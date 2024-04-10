@@ -20,13 +20,20 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-
+  final scrolController = ScrollController();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    scrolController.addListener(() {
+      if (scrolController.offset >= scrolController.position.maxScrollExtent &&
+        !scrolController.position.outOfRange) {
+      BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts(''));
+    }
+    });
+    
     BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts(''));
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +58,24 @@ class _ProductsPageState extends State<ProductsPage> {
             return Padding(
             padding: const EdgeInsets.all(16.0),
             child: ListView.separated(
+              controller: scrolController,
               itemBuilder: (context, index) {
-                return buildProductItem(state.products[index]);
+                if (index >= state.products.length) {
+                  return Center(child: Column(
+                    children: [
+                      SizedBox(height: 45,),
+                      CircularProgressIndicator(),
+                    ],
+                  ),);
+                  
+                } else {
+                  return buildProductItem(state.products[index], context);
+                }
               }, 
               separatorBuilder: (context, index) {
-                return Divider(color: Colors.grey[400],);
+                return Container(height: 16.0,);
               }, 
-              itemCount: state.products.length)
+              itemCount: state.isLoading ? state.products.length + 1 : state.products.length)
           );
           } else {
             state.failureOrSuccessOption.fold(
@@ -98,10 +116,18 @@ class _ProductsPageState extends State<ProductsPage> {
   }
 }
 
-Widget buildProductItem(Product product) {
-  return Column(children: [
-    Text(product.title),
-    SizedBox(height: 6,),
-    Text(product.category)
-  ],);
+Widget buildProductItem(Product product, BuildContext context) {
+  return Card(
+    color: Theme.of(context).cardColor,
+    child: Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(product.title, style: Theme.of(context).textTheme.titleLarge,),
+        SizedBox(height: 6,),
+        Text(product.price.toString(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).primaryColor),),
+        SizedBox(height: 6,),
+        Text(product.description, style: Theme.of(context).textTheme.bodySmall, maxLines: 2, overflow: TextOverflow.fade,)
+      ],),
+    ),
+  );
 }

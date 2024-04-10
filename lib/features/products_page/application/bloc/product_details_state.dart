@@ -11,5 +11,5 @@ class ProductDetailsState with _$ProductDetailsState {
       required List<Product> products}) = _ProductDetailsState;
 
   factory ProductDetailsState.initial() => ProductDetailsState(
-      isLoading: false, failureOrSuccessOption: Option.none(), curPage: 1, loadingNextPage: false, products: []);
+      isLoading: false, failureOrSuccessOption: Option.none(), curPage: 1, loadingNextPage: false, products: [],);
 }
