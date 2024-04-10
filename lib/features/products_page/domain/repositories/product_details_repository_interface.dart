@@ -3,5 +3,6 @@ import 'package:rolla_zadatak/features/products_page/domain/entities/failures/pr
 import 'package:rolla_zadatak/features/products_page/domain/entities/products_model/products_model.dart';
 
 abstract class IProductDetailsRepositoryInterface {
-  Future<Either<ProductsFailure, ProductsModel>> getProducts(int skip, int limit, {String query = ''});
+  Future<Either<ProductsFailure, ProductsModel>> getProducts(int skip, int limit);
+  Future<Either<ProductsFailure, ProductsModel>> getQueriedProducts(int skip, int limit, {String query = ''});
 }

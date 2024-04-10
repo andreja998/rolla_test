@@ -13,10 +13,29 @@ import 'package:rolla_zadatak/injection.dart';
 @LazySingleton(as: IProductDetailsRepositoryInterface)
 class ProductDetailsRepository implements IProductDetailsRepositoryInterface {
   @override
-  Future<Either<ProductsFailure, ProductsModel>> getProducts(int skip, int limit, {String query = ''}) async {
+  Future<Either<ProductsFailure, ProductsModel>> getProducts(int skip, int limit) async {
     final dio = getIt<Dio>();
 
     Response response = await dio.get(ApiConstants.fetchNonSearchProducts, queryParameters: {'skip': skip, 'limit': limit});
+
+    if (response.isSuccessful()) {
+      try {
+        var productsData = ProductsModel.fromJson(response.data);
+
+        return right(productsData);
+      } catch (e) {
+        return left(const ProductsFailure.serverError());
+      }
+    } else {
+      return left(const ProductsFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<ProductsFailure, ProductsModel>> getQueriedProducts(int skip, int limit, {String query = ''}) async {
+    final dio = getIt<Dio>();
+
+    Response response = await dio.get(ApiConstants.fetchProducts, queryParameters: {'skip': skip, 'limit': limit, 'q': query});
 
     if (response.isSuccessful()) {
       try {

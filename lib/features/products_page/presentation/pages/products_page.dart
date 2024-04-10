@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rolla_zadatak/features/common/widgets/primary_input.dart';
 import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
 import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
 import 'package:rolla_zadatak/features/products_page/domain/entities/products_model/product.dart';
@@ -21,6 +24,8 @@ class ProductsPage extends StatefulWidget {
 
 class _ProductsPageState extends State<ProductsPage> {
   final scrolController = ScrollController();
+  Timer? debounce;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -28,11 +33,11 @@ class _ProductsPageState extends State<ProductsPage> {
     scrolController.addListener(() {
       if (scrolController.offset >= scrolController.position.maxScrollExtent &&
         !scrolController.position.outOfRange) {
-      BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts(''));
+      BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
     }
     });
     
-    BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts(''));
+    BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
     }
 
   @override
@@ -57,25 +62,38 @@ class _ProductsPageState extends State<ProductsPage> {
           if (state.products.length != 0) {
             return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ListView.separated(
-              controller: scrolController,
-              itemBuilder: (context, index) {
-                if (index >= state.products.length) {
-                  return Center(child: Column(
-                    children: [
-                      SizedBox(height: 45,),
-                      CircularProgressIndicator(),
-                    ],
-                  ),);
-                  
-                } else {
-                  return buildProductItem(state.products[index], context);
-                }
-              }, 
-              separatorBuilder: (context, index) {
-                return Container(height: 16.0,);
-              }, 
-              itemCount: state.isLoading ? state.products.length + 1 : state.products.length)
+            child: Column(
+              children: [
+                PrimaryInput(labelText: '', hint: 'Search products', onChanged: (value) {
+                  if (debounce?.isActive ?? false) debounce?.cancel();
+                    debounce = Timer(Duration(milliseconds: 300), () {
+                      BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getQueriedProducts(value, false));
+                    });
+                }),
+                SizedBox(height: 16,),
+                Expanded(
+                  child: ListView.separated(
+                    controller: scrolController,
+                    itemBuilder: (context, index) {
+                      if (index >= state.products.length) {
+                        return Center(child: Column(
+                          children: [
+                            SizedBox(height: 45,),
+                            CircularProgressIndicator(),
+                          ],
+                        ),);
+                        
+                      } else {
+                        return buildProductItem(state.products[index], context);
+                      }
+                    }, 
+                    separatorBuilder: (context, index) {
+                      return Container(height: 16.0,);
+                    }, 
+                    itemCount: state.isLoading ? state.products.length + 1 : state.products.length),
+                ),
+              ],
+            )
           );
           } else {
             state.failureOrSuccessOption.fold(

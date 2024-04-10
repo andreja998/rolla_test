@@ -49,5 +49,43 @@ class ProductDetailsBloc
 
       // result.fold((l) => emit(ExposuresState.error(failure: ExposureFailure.serverError())), (r) => emit(ExposuresState.loaded(exposures: r)));
     });
+    on<_GetQueriedProducts>((event, emit) async {
+      if (state.isLoading) {
+        return;
+      }
+      emit(state.copyWith(isLoading: true));
+      
+      var skip = 0;
+      const limit = 15;
+      if (state.curPage != 1 && event.nextPage == true) {
+        skip = state.curPage * 15;
+      }
+      Either<ProductsFailure, ProductsModel> result;
+      if (event.query.isEmpty) {
+        result = await productDetailsRepositoryInterface.getProducts(skip, limit);
+      } else {
+        result = await productDetailsRepositoryInterface.getQueriedProducts(skip, limit, query: event.query);
+      }
+      
+      result.fold((l) => {
+        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result)))
+      }, (productsModel) {
+        List<Product> newProducts = [];
+        var curPage = state.curPage;
+
+        if (productsModel.products != null) {
+          if (event.nextPage == true) {
+            newProducts = [...state.products, ...productsModel.products!];
+          } else {
+            newProducts = productsModel.products!;
+          }
+          curPage++;
+        }
+        
+        emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), curPage: curPage, products: newProducts));
+      });
+
+      // result.fold((l) => emit(ExposuresState.error(failure: ExposureFailure.serverError())), (r) => emit(ExposuresState.loaded(exposures: r)));
+    });
   }
 }
