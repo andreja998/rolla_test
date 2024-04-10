@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rolla_zadatak/config/router.dart';
 import 'package:rolla_zadatak/config/themes.dart';
 import 'package:rolla_zadatak/features/auth/application/bloc/login_bloc.dart';
+import 'package:rolla_zadatak/features/log_page/application/bloc/log_bloc.dart';
 import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
 import 'package:rolla_zadatak/injection.dart';
 
@@ -23,6 +24,7 @@ class MainApp extends StatelessWidget {
             providers: [
           BlocProvider(create: ((context) => ProductDetailsBloc())),
           BlocProvider(create: ((context) => LoginBloc())),
+          BlocProvider(create: ((context) => LogBloc()))
         ],
             child: MaterialApp.router(
               // routerDelegate: _appRouter.delegate(),
