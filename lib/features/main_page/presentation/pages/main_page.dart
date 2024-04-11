@@ -42,23 +42,19 @@ class _MainPageState extends State<MainPage> {
           // backgroundColor: Colors.white,
           // body: pages[_selectedPageIndex],
           routes: [
-            ProductsRouter(),
-            LogRouter(),
+            const ProductsRouter(),
+            const LogRouter(),
           ],
           bottomNavigationBuilder: (context, tabsRouter) {
             context.watchRouter.addListener(() {});
             return SizedBox(
               height: 80,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     border: Border(
                   top: BorderSide(width: 1, color: Colors.black),
                 )),
                 child: BottomNavigationBar(
-                    // selectedLabelStyle:
-                    //     const TextStyle(fontSize: 10, color: Theme.of(context).bo),
-                    // unselectedLabelStyle:
-                    //     const TextStyle(fontSize: 10, color: Colors.black),
                     backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
                     unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
                     selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
@@ -68,9 +64,9 @@ class _MainPageState extends State<MainPage> {
                     items: [
                       BottomNavigationBarItem(
                           activeIcon: Padding(
-                            padding: EdgeInsets.only(bottom: 8),
+                            padding: const EdgeInsets.only(bottom: 8),
                             child: Image(
-                                image: AssetImage(
+                                image: const AssetImage(
                                   'assets/icons/home-icon.png',
                                 ),
                                 width: 30,
@@ -78,9 +74,9 @@ class _MainPageState extends State<MainPage> {
                                 color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor),
                           ),
                           icon: Padding(
-                            padding: EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: Image(
-                              image: AssetImage(
+                              image: const AssetImage(
                                 'assets/icons/home-icon.png',
                               ),
                               width: 30,
@@ -91,9 +87,9 @@ class _MainPageState extends State<MainPage> {
                           label: 'Home'),
                       BottomNavigationBarItem(
                           activeIcon: Padding(
-                            padding: EdgeInsets.only(bottom: 8),
+                            padding: const EdgeInsets.only(bottom: 8),
                             child: Image(
-                                image: AssetImage(
+                                image: const AssetImage(
                                   'assets/icons/exposures-icon.png',
                                 ),
                                 width: 30,
@@ -101,9 +97,9 @@ class _MainPageState extends State<MainPage> {
                                 color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor),
                           ),
                           icon: Padding(
-                            padding: EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: Image(
-                              image: AssetImage(
+                              image: const AssetImage(
                                 'assets/icons/exposures-icon.png',
                               ),
                               width: 30,

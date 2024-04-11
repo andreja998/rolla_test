@@ -33,10 +33,8 @@ class _LoginPageState extends State<LoginPage> {
               () {},
               (either) => either.fold((failure) {
                     FlushbarHelper.createError(
-                        message: failure.map(
+                      message: failure.map(
                       serverError: (_) => 'Server error',
-                      // invalidEmailAndPasswordCombination: (_) =>
-                      //     'Invalid email and password combination',
                     )).show(context);
                   }, (_) => {context.replaceRoute(const MainRoute())}));
         },

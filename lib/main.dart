@@ -5,6 +5,7 @@ import 'package:rolla_zadatak/config/themes.dart';
 import 'package:rolla_zadatak/features/auth/application/bloc/login_bloc.dart';
 import 'package:rolla_zadatak/features/log_page/application/bloc/log_bloc.dart';
 import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
+import 'package:rolla_zadatak/features/user_page/application/bloc/user_bloc.dart';
 import 'package:rolla_zadatak/injection.dart';
 
 void main() async {
@@ -24,20 +25,10 @@ class MainApp extends StatelessWidget {
             providers: [
           BlocProvider(create: ((context) => ProductDetailsBloc())),
           BlocProvider(create: ((context) => LoginBloc())),
-          BlocProvider(create: ((context) => LogBloc()))
+          BlocProvider(create: ((context) => LogBloc())),
+          BlocProvider(create: ((context) => UserBloc()))
         ],
             child: MaterialApp.router(
-              // routerDelegate: _appRouter.delegate(),
-              //     AutoRouterDelegate.declarative(_appRouter, routes: (_) {
-              //   bool isAuthenticated = getIt.get(instanceName: 'isAuthenticated');
-              //   // SysInfo.
-              //   return [
-              //     const MainRoute(),
-
-              //     // isAuthenticated == true ? const ProductDetailsRoute() : const ProfilePageRoute()
-              //   ];
-              // }),
-              // routeInformationParser: _appRouter.defaultRouteParser(),
               routerDelegate: appRouter.delegate(),
               routeInformationParser: appRouter.defaultRouteParser(),
               title: 'Rolla Zadatak',

@@ -24,6 +24,12 @@ class AppRouter extends $AppRouter {
         page: LoginRoute.page,
       ),
     ]),
+    AutoRoute(page: UserRouter.page, path: '/user', children: [
+      AutoRoute(
+        path: '',
+        page: UserRoute.page,
+      ),
+    ]),
     AutoRoute(path: '/', page: MainRoute.page, guards: [
       AuthGuard()
     ], children: [

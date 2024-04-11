@@ -28,6 +28,7 @@ mixin _$User {
   String get gender => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  int? get age => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +48,8 @@ abstract class $UserCopyWith<$Res> {
       String lastName,
       String gender,
       String image,
-      String token});
+      String token,
+      int? age});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? gender = null,
     Object? image = null,
     Object? token = null,
+    Object? age = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -105,6 +108,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      age: freezed == age
+          ? _value.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -123,7 +130,8 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String lastName,
       String gender,
       String image,
-      String token});
+      String token,
+      int? age});
 }
 
 /// @nodoc
@@ -143,6 +151,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? gender = null,
     Object? image = null,
     Object? token = null,
+    Object? age = freezed,
   }) {
     return _then(_$_User(
       id: null == id
@@ -177,6 +186,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      age: freezed == age
+          ? _value.age
+          : age // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -192,7 +205,8 @@ class _$_User implements _User {
       required this.lastName,
       required this.gender,
       required this.image,
-      required this.token});
+      required this.token,
+      required this.age});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -212,10 +226,12 @@ class _$_User implements _User {
   final String image;
   @override
   final String token;
+  @override
+  final int? age;
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName, gender: $gender, image: $image, token: $token)';
+    return 'User(id: $id, username: $username, email: $email, firstName: $firstName, lastName: $lastName, gender: $gender, image: $image, token: $token, age: $age)';
   }
 
   @override
@@ -233,13 +249,14 @@ class _$_User implements _User {
                 other.lastName == lastName) &&
             (identical(other.gender, gender) || other.gender == gender) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.age, age) || other.age == age));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, username, email, firstName,
-      lastName, gender, image, token);
+      lastName, gender, image, token, age);
 
   @JsonKey(ignore: true)
   @override
@@ -264,7 +281,8 @@ abstract class _User implements User {
       required final String lastName,
       required final String gender,
       required final String image,
-      required final String token}) = _$_User;
+      required final String token,
+      required final int? age}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -284,6 +302,8 @@ abstract class _User implements User {
   String get image;
   @override
   String get token;
+  @override
+  int? get age;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

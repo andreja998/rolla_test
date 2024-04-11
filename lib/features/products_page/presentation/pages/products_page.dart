@@ -6,6 +6,7 @@ import 'package:another_flushbar/flushbar_helper.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rolla_zadatak/config/router.gr.dart';
 import 'package:rolla_zadatak/features/common/widgets/primary_input.dart';
 import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
 import 'package:rolla_zadatak/features/products_page/application/bloc/product_details_bloc.dart';
@@ -36,20 +37,18 @@ class _ProductsPageState extends State<ProductsPage> {
         !scrolController.position.outOfRange) {
           // dodati logiku da vidi da li je query i njega da pozove
       if (query.isEmpty) {
-          BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
+          BlocProvider.of<ProductDetailsBloc>(context).add(const ProductDetailsEvent.getProducts());
       } else {
         BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getQueriedProducts(query, true));
       }
     }
     });
 
-    BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getUser());
-    BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
+    BlocProvider.of<ProductDetailsBloc>(context).add(const ProductDetailsEvent.getProducts());
   }
 
   @override
   Widget build(BuildContext context) {
-    var user = BlocProvider.of<ProductDetailsBloc>(context).state.user;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -61,7 +60,10 @@ class _ProductsPageState extends State<ProductsPage> {
           Padding(
             padding: const EdgeInsets.only(right: 32),
             child: InkWell(
-              child: user?.image != null ? Image.network(user!.image, width: 32, height: 32, fit: BoxFit.cover,) : Text('-'),
+              onTap: () {
+                context.router.navigate(const UserRouter(children: [UserRoute()]));
+              },
+              child: const Icon(Icons.account_circle, size: 32,)
             ),
           )
         ],
@@ -89,11 +91,11 @@ class _ProductsPageState extends State<ProductsPage> {
               children: [
                 PrimaryInput(labelText: '', hint: 'Search products', onChanged: (value) {
                   if (debounce?.isActive ?? false) debounce?.cancel();
-                    debounce = Timer(Duration(milliseconds: 300), () {
+                    debounce = Timer(const Duration(milliseconds: 300), () {
                       BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getQueriedProducts(value, false));
                     });
                 }),
-                SizedBox(height: 16,),
+                const SizedBox(height: 16,),
                 Expanded(
                   child: ListView.separated(
                     controller: scrolController,
@@ -101,8 +103,8 @@ class _ProductsPageState extends State<ProductsPage> {
                       if (index >= state.products.length) {
                         return Center(child: Column(
                           children: [
-                            SizedBox(height: 45,),
-                            CircularProgressIndicator(),
+                            const SizedBox(height: 45,),
+                            const CircularProgressIndicator(),
                           ],
                         ),);
                         
@@ -123,7 +125,7 @@ class _ProductsPageState extends State<ProductsPage> {
               () {},
               (either) { 
                 either.fold((failure) {
-                    return Padding(padding: EdgeInsets.all(16),
+                    return const Padding(padding: EdgeInsets.all(16),
             child: Text('Error loading products'),);
                   }, (_) {
                     // context.replaceRoute(const MainRoute());
@@ -164,9 +166,9 @@ Widget buildProductItem(Product product, BuildContext context) {
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(product.title, style: Theme.of(context).textTheme.titleLarge,),
-        SizedBox(height: 6,),
+        const SizedBox(height: 6,),
         Text(product.price.toString(), style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Theme.of(context).primaryColor),),
-        SizedBox(height: 6,),
+        const SizedBox(height: 6,),
         Text(product.description, style: Theme.of(context).textTheme.bodySmall, maxLines: 2, overflow: TextOverflow.fade,)
       ],),
     ),

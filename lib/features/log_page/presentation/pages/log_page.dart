@@ -21,9 +21,8 @@ class _LogPageState extends State<LogPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    BlocProvider.of<LogBloc>(context).add(LogEvent.getLogs());
+    BlocProvider.of<LogBloc>(context).add(const LogEvent.getLogs());
   }
 
   @override

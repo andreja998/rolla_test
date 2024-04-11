@@ -77,7 +77,13 @@ class ProductDetailsBloc
         emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), query: event.query))
       }, (productsModel) {
         List<Product> newProducts = [];
-        var curPage = state.curPage;
+        int curPage;
+        if (event.nextPage) {
+          curPage = state.curPage;
+        } else {
+          curPage = 1;
+        }
+      
       
         if (productsModel.products != null) {
           if (event.nextPage == true) {
@@ -98,7 +104,7 @@ class ProductDetailsBloc
           final user = User.fromJson(jsonDecode(userString));
           emit(state.copyWith(user: user));
         } else {
-          // Handle the case where
+          // Here we can handle error case
         }
       });
   }

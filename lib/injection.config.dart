@@ -14,8 +14,8 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i13;
 
-import 'config/modules/app_modules.dart' as _i14;
-import 'config/modules/storage_module.dart' as _i15;
+import 'config/modules/app_modules.dart' as _i15;
+import 'config/modules/storage_module.dart' as _i16;
 import 'config/router.dart' as _i3;
 import 'features/auth/application/bloc/login_bloc.dart' as _i11;
 import 'features/auth/domain/repositories/auth_repository_interface.dart'
@@ -30,6 +30,7 @@ import 'features/products_page/domain/repositories/product_details_repository_in
     as _i9;
 import 'features/products_page/infrastructure/product_details_repository.dart'
     as _i10;
+import 'features/user_page/application/bloc/user_bloc.dart' as _i14;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -58,9 +59,10 @@ Future<_i1.GetIt> init(
     () => storageModule.preferences,
     preResolve: true,
   );
+  gh.factory<_i14.UserBloc>(() => _i14.UserBloc());
   return getIt;
 }
 
-class _$AppModules extends _i14.AppModules {}
+class _$AppModules extends _i15.AppModules {}
 
-class _$StorageModule extends _i15.StorageModule {}
+class _$StorageModule extends _i16.StorageModule {}

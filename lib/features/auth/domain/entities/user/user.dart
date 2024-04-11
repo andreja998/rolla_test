@@ -14,6 +14,7 @@ class User with _$User {
     required String gender,
     required String image,
     required String token,
+    required int? age,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

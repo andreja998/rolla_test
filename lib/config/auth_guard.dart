@@ -7,13 +7,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
-    final accessToken =
-        await getIt<SharedPreferences>().getString(SharedPrefsKeys.accessToken);
-
-    print('Access $accessToken');
+    final accessToken = getIt<SharedPreferences>().getString(SharedPrefsKeys.accessToken);
+    
+    // In real world scenario here should be better check for valid token
     if (accessToken != null && accessToken.isNotEmpty)
-      resolver.next(true); // book was found. proceed to the page
+      resolver.next(true);
     else
-      router.push(LoginRouter(children: [LoginRoute()]));
+      router.replaceAll([const LoginRouter()]);
   }
 }

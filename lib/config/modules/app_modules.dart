@@ -30,7 +30,10 @@ abstract class AppModules {
     String? refreshToken = '';
     var sharedPref = getIt<SharedPreferences>();
 
-    // dio.interceptors.add(LogInterceptor(responseBody: true));
+    // Dio version seems like not working well, some bug I guess for onError callback
+    // I've lost a lot of time figuring out but it's some bug in the package
+    // In the previues project I've done this and it was working
+    // So the interceptor for refresh token is not finished, but I know how it should be done
     dio.interceptors.addAll([
       LogInterceptor(responseBody: true),
       InterceptorsWrapper(
@@ -44,10 +47,6 @@ abstract class AppModules {
         },
         onResponse: (response, handler) async {
           final respToken = response.headers.value('Authorization');
-
-          // if (respToken != null) {
-          //   token = respToken;
-          // }
           if (response.statusCode == 401) {
             refreshToken = sharedPref.getString(SharedPrefsKeys.accessToken);
             try {
@@ -64,9 +63,6 @@ abstract class AppModules {
               }
 
               if (result.statusCode == 201 || result.statusCode == 200) {
-                  //get new tokens ...
-                  print('access token $token');
-                  print('refresh token $refreshToken');
                   var newToken = User.fromJson(result.data).token;
                   // set bearer
                   response.requestOptions.headers['Authorization'] = 'Bearer $newToken';
@@ -80,18 +76,10 @@ abstract class AppModules {
                       queryParameters: response.requestOptions.queryParameters);
 
                   return handler.resolve(cloneReq);
-                  token = newToken;
-
-                  // return handler.next(error);
                 } 
-                // else {
-                //   sharedPref.clear();
-                //   throw DioException(requestOptions: result.requestOptions);
-                //   // getIt<AppRouter>().replaceAll([LoginRouter()]);
-                // }
             } on DioException catch (e, st) {
               await sharedPref.clear();
-              getIt<AppRouter>().replaceAll([LoginRouter(children: [LogRoute()])]);
+              getIt<AppRouter>().replaceAll([const LoginRouter(children: [LogRoute()])]);
             }
           }
           return handler.next(response);
@@ -121,29 +109,12 @@ abstract class AppModules {
                   print('access token $token');
                   print('refresh token $refreshToken');
                   var newToken = User.fromJson(result.data).token;
-                  //set bearer
-                  // e.requestOptions.headers['Authorization'] = 'Bearer $newToken';
-                  // //create request with new access token
-                  // final opts = new Options(
-                  //     method: e.requestOptions.method,
-                  //     headers: e.requestOptions.headers);
-                  // final cloneReq = await dio.request(e.requestOptions.path,
-                  //     options: opts,
-                  //     data: e.requestOptions.data,
-                  //     queryParameters: e.requestOptions.queryParameters);
-
-                  // return handler.resolve(cloneReq);
                   token = newToken;
                   return handler.next(error);
                 } 
-                // else {
-                //   sharedPref.clear();
-                //   throw DioException(requestOptions: result.requestOptions);
-                //   // getIt<AppRouter>().replaceAll([LoginRouter()]);
-                // }
             } on DioException catch (e, st) {
               await sharedPref.clear();
-              getIt<AppRouter>().replaceAll([LoginRouter(children: [LogRoute()])]);
+              getIt<AppRouter>().replaceAll([const LoginRouter()]);
             }
           }
         },
@@ -154,19 +125,8 @@ abstract class AppModules {
               final retryDio = Dio(
                 BaseOptions(baseUrl: error.requestOptions.baseUrl),
               );
-
-              // if (error.requestOptions.headers.containsKey(headerKey) &&
-              //     error.requestOptions.headers[headerKey] != cachedCSRFToken) {
-              //   error.requestOptions.headers[headerKey] = cachedCSRFToken;
-              // }
               error.requestOptions.headers['Authorization'] = token;
 
-              /// In real-world scenario,
-              /// the request should be requested with [error.requestOptions]
-              /// using [fetch] method.
-              /// ``` dart
-              /// final result = await retryDio.fetch(error.requestOptions);
-              /// ```
               final result = await retryDio.fetch(error.requestOptions);
 
               return handler.resolve(result);
