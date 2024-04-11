@@ -32,12 +32,8 @@ class LogRepository implements ILogRepositoryInterface {
 }
 
   Either<LogFailure, List<Log>> parseLogResponse(dynamic responseBody) {
-    // final parsed =
-    //   (jsonDecode(responseBody) as List).cast<Map<String, dynamic>>();
     final list = jsonDecode(responseBody) as List<dynamic>;
     var logs = list.map((log) => Log.fromJson(log)).toList();
-    // return right(parsed.map<Log>((json) => Log.fromJson(json)).toList());
-      // return compute(parseLogResponse, response.data);
     
     return right(mergeSortLogList(logs));
   }
