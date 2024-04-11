@@ -1,13 +1,19 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rolla_zadatak/config/shared_prefs_keys.dart';
+import 'package:rolla_zadatak/features/auth/domain/entities/user/user.dart';
 import 'package:rolla_zadatak/features/products_page/domain/entities/failures/products_failure.dart';
 import 'package:rolla_zadatak/features/products_page/domain/entities/products_model/product.dart';
 import 'package:rolla_zadatak/features/products_page/domain/entities/products_model/products_model.dart';
 import 'package:rolla_zadatak/features/products_page/domain/repositories/product_details_repository_interface.dart';
 import 'package:rolla_zadatak/features/products_page/infrastructure/product_details_repository.dart';
+import 'package:rolla_zadatak/injection.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'product_details_event.dart';
 part 'product_details_state.dart';
@@ -84,8 +90,16 @@ class ProductDetailsBloc
         
         emit(state.copyWith(isLoading: false, failureOrSuccessOption: optionOf(result), curPage: curPage, products: newProducts, query: event.query));
       });
-
-      // result.fold((l) => emit(ExposuresState.error(failure: ExposureFailure.serverError())), (r) => emit(ExposuresState.loaded(exposures: r)));
-    });
+    }
+    );
+    on<_GetUser>((event, emit) async {
+        var userString = getIt<SharedPreferences>().getString(SharedPrefsKeys.user);
+        if (userString != null) {
+          final user = User.fromJson(jsonDecode(userString));
+          emit(state.copyWith(user: user));
+        } else {
+          // Handle the case where
+        }
+      });
   }
 }

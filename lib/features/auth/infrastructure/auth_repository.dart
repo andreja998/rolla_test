@@ -24,11 +24,12 @@ class AuthRepository implements IAuthRepositoryInterface {
             {'username': username, 'password': password, 'expiresInMins': 20}));
 
     if (response.isSuccessful()) {
-      final token = User.fromJson(response.data).token;
+      final user = User.fromJson(response.data);
       var sp = getIt<SharedPreferences>();
 
-      await sp.setString(SharedPrefsKeys.accessToken, token);
-      await sp.setString(SharedPrefsKeys.refreshToken, token);
+      await sp.setString(SharedPrefsKeys.accessToken, user.token);
+      await sp.setString(SharedPrefsKeys.refreshToken, user.token);
+      await sp.setString(SharedPrefsKeys.user, jsonEncode(user.toJson()));
 
       return right(unit);
     } else if (response.statusCode == 401) {

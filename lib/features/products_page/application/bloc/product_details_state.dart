@@ -9,6 +9,7 @@ class ProductDetailsState with _$ProductDetailsState {
       required int curPage,
       required bool loadingNextPage,
       required List<Product> products,
+      User? user,
       required String query}) = _ProductDetailsState;
 
   factory ProductDetailsState.initial() => ProductDetailsState(

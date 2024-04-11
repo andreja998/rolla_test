@@ -29,6 +29,14 @@ class _LogPageState extends State<LogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Logs',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
+        leadingWidth: 100,
+       
+      ),
       body: BlocConsumer<LogBloc, LogState>(
         listener: (context, state) {
           

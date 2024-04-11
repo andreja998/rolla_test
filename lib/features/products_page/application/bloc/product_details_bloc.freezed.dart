@@ -20,18 +20,21 @@ mixin _$ProductDetailsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getProducts,
     required TResult Function(String query, bool nextPage) getQueriedProducts,
+    required TResult Function() getUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getProducts,
     TResult? Function(String query, bool nextPage)? getQueriedProducts,
+    TResult? Function()? getUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getProducts,
     TResult Function(String query, bool nextPage)? getQueriedProducts,
+    TResult Function()? getUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ProductDetailsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetProducts value) getProducts,
     required TResult Function(_GetQueriedProducts value) getQueriedProducts,
+    required TResult Function(_GetUser value) getUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetProducts value)? getProducts,
     TResult? Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult? Function(_GetUser value)? getUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetProducts value)? getProducts,
     TResult Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult Function(_GetUser value)? getUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$_GetProducts implements _GetProducts {
   TResult when<TResult extends Object?>({
     required TResult Function() getProducts,
     required TResult Function(String query, bool nextPage) getQueriedProducts,
+    required TResult Function() getUser,
   }) {
     return getProducts();
   }
@@ -123,6 +130,7 @@ class _$_GetProducts implements _GetProducts {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getProducts,
     TResult? Function(String query, bool nextPage)? getQueriedProducts,
+    TResult? Function()? getUser,
   }) {
     return getProducts?.call();
   }
@@ -132,6 +140,7 @@ class _$_GetProducts implements _GetProducts {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getProducts,
     TResult Function(String query, bool nextPage)? getQueriedProducts,
+    TResult Function()? getUser,
     required TResult orElse(),
   }) {
     if (getProducts != null) {
@@ -145,6 +154,7 @@ class _$_GetProducts implements _GetProducts {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetProducts value) getProducts,
     required TResult Function(_GetQueriedProducts value) getQueriedProducts,
+    required TResult Function(_GetUser value) getUser,
   }) {
     return getProducts(this);
   }
@@ -154,6 +164,7 @@ class _$_GetProducts implements _GetProducts {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetProducts value)? getProducts,
     TResult? Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult? Function(_GetUser value)? getUser,
   }) {
     return getProducts?.call(this);
   }
@@ -163,6 +174,7 @@ class _$_GetProducts implements _GetProducts {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetProducts value)? getProducts,
     TResult Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult Function(_GetUser value)? getUser,
     required TResult orElse(),
   }) {
     if (getProducts != null) {
@@ -252,6 +264,7 @@ class _$_GetQueriedProducts implements _GetQueriedProducts {
   TResult when<TResult extends Object?>({
     required TResult Function() getProducts,
     required TResult Function(String query, bool nextPage) getQueriedProducts,
+    required TResult Function() getUser,
   }) {
     return getQueriedProducts(query, nextPage);
   }
@@ -261,6 +274,7 @@ class _$_GetQueriedProducts implements _GetQueriedProducts {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getProducts,
     TResult? Function(String query, bool nextPage)? getQueriedProducts,
+    TResult? Function()? getUser,
   }) {
     return getQueriedProducts?.call(query, nextPage);
   }
@@ -270,6 +284,7 @@ class _$_GetQueriedProducts implements _GetQueriedProducts {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getProducts,
     TResult Function(String query, bool nextPage)? getQueriedProducts,
+    TResult Function()? getUser,
     required TResult orElse(),
   }) {
     if (getQueriedProducts != null) {
@@ -283,6 +298,7 @@ class _$_GetQueriedProducts implements _GetQueriedProducts {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetProducts value) getProducts,
     required TResult Function(_GetQueriedProducts value) getQueriedProducts,
+    required TResult Function(_GetUser value) getUser,
   }) {
     return getQueriedProducts(this);
   }
@@ -292,6 +308,7 @@ class _$_GetQueriedProducts implements _GetQueriedProducts {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetProducts value)? getProducts,
     TResult? Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult? Function(_GetUser value)? getUser,
   }) {
     return getQueriedProducts?.call(this);
   }
@@ -301,6 +318,7 @@ class _$_GetQueriedProducts implements _GetQueriedProducts {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetProducts value)? getProducts,
     TResult Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult Function(_GetUser value)? getUser,
     required TResult orElse(),
   }) {
     if (getQueriedProducts != null) {
@@ -322,6 +340,113 @@ abstract class _GetQueriedProducts implements ProductDetailsEvent {
 }
 
 /// @nodoc
+abstract class _$$_GetUserCopyWith<$Res> {
+  factory _$$_GetUserCopyWith(
+          _$_GetUser value, $Res Function(_$_GetUser) then) =
+      __$$_GetUserCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_GetUserCopyWithImpl<$Res>
+    extends _$ProductDetailsEventCopyWithImpl<$Res, _$_GetUser>
+    implements _$$_GetUserCopyWith<$Res> {
+  __$$_GetUserCopyWithImpl(_$_GetUser _value, $Res Function(_$_GetUser) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_GetUser implements _GetUser {
+  const _$_GetUser();
+
+  @override
+  String toString() {
+    return 'ProductDetailsEvent.getUser()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_GetUser);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getProducts,
+    required TResult Function(String query, bool nextPage) getQueriedProducts,
+    required TResult Function() getUser,
+  }) {
+    return getUser();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getProducts,
+    TResult? Function(String query, bool nextPage)? getQueriedProducts,
+    TResult? Function()? getUser,
+  }) {
+    return getUser?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getProducts,
+    TResult Function(String query, bool nextPage)? getQueriedProducts,
+    TResult Function()? getUser,
+    required TResult orElse(),
+  }) {
+    if (getUser != null) {
+      return getUser();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetProducts value) getProducts,
+    required TResult Function(_GetQueriedProducts value) getQueriedProducts,
+    required TResult Function(_GetUser value) getUser,
+  }) {
+    return getUser(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetProducts value)? getProducts,
+    TResult? Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult? Function(_GetUser value)? getUser,
+  }) {
+    return getUser?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetProducts value)? getProducts,
+    TResult Function(_GetQueriedProducts value)? getQueriedProducts,
+    TResult Function(_GetUser value)? getUser,
+    required TResult orElse(),
+  }) {
+    if (getUser != null) {
+      return getUser(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetUser implements ProductDetailsEvent {
+  const factory _GetUser() = _$_GetUser;
+}
+
+/// @nodoc
 mixin _$ProductDetailsState {
   bool get isLoading => throw _privateConstructorUsedError;
   Option<Either<ProductsFailure, ProductsModel>> get failureOrSuccessOption =>
@@ -329,6 +454,7 @@ mixin _$ProductDetailsState {
   int get curPage => throw _privateConstructorUsedError;
   bool get loadingNextPage => throw _privateConstructorUsedError;
   List<Product> get products => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
   String get query => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -348,7 +474,10 @@ abstract class $ProductDetailsStateCopyWith<$Res> {
       int curPage,
       bool loadingNextPage,
       List<Product> products,
+      User? user,
       String query});
+
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -369,6 +498,7 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
     Object? curPage = null,
     Object? loadingNextPage = null,
     Object? products = null,
+    Object? user = freezed,
     Object? query = null,
   }) {
     return _then(_value.copyWith(
@@ -392,11 +522,27 @@ class _$ProductDetailsStateCopyWithImpl<$Res, $Val extends ProductDetailsState>
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -414,7 +560,11 @@ abstract class _$$_ProductDetailsStateCopyWith<$Res>
       int curPage,
       bool loadingNextPage,
       List<Product> products,
+      User? user,
       String query});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -433,6 +583,7 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
     Object? curPage = null,
     Object? loadingNextPage = null,
     Object? products = null,
+    Object? user = freezed,
     Object? query = null,
   }) {
     return _then(_$_ProductDetailsState(
@@ -456,6 +607,10 @@ class __$$_ProductDetailsStateCopyWithImpl<$Res>
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<Product>,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
@@ -473,6 +628,7 @@ class _$_ProductDetailsState implements _ProductDetailsState {
       required this.curPage,
       required this.loadingNextPage,
       required final List<Product> products,
+      this.user,
       required this.query})
       : _products = products;
 
@@ -493,11 +649,13 @@ class _$_ProductDetailsState implements _ProductDetailsState {
   }
 
   @override
+  final User? user;
+  @override
   final String query;
 
   @override
   String toString() {
-    return 'ProductDetailsState(isLoading: $isLoading, failureOrSuccessOption: $failureOrSuccessOption, curPage: $curPage, loadingNextPage: $loadingNextPage, products: $products, query: $query)';
+    return 'ProductDetailsState(isLoading: $isLoading, failureOrSuccessOption: $failureOrSuccessOption, curPage: $curPage, loadingNextPage: $loadingNextPage, products: $products, user: $user, query: $query)';
   }
 
   @override
@@ -513,6 +671,7 @@ class _$_ProductDetailsState implements _ProductDetailsState {
             (identical(other.loadingNextPage, loadingNextPage) ||
                 other.loadingNextPage == loadingNextPage) &&
             const DeepCollectionEquality().equals(other._products, _products) &&
+            (identical(other.user, user) || other.user == user) &&
             (identical(other.query, query) || other.query == query));
   }
 
@@ -524,6 +683,7 @@ class _$_ProductDetailsState implements _ProductDetailsState {
       curPage,
       loadingNextPage,
       const DeepCollectionEquality().hash(_products),
+      user,
       query);
 
   @JsonKey(ignore: true)
@@ -542,6 +702,7 @@ abstract class _ProductDetailsState implements ProductDetailsState {
       required final int curPage,
       required final bool loadingNextPage,
       required final List<Product> products,
+      final User? user,
       required final String query}) = _$_ProductDetailsState;
 
   @override
@@ -554,6 +715,8 @@ abstract class _ProductDetailsState implements ProductDetailsState {
   bool get loadingNextPage;
   @override
   List<Product> get products;
+  @override
+  User? get user;
   @override
   String get query;
   @override

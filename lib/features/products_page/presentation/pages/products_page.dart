@@ -28,7 +28,6 @@ class _ProductsPageState extends State<ProductsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     scrolController.addListener(() {
       final query = BlocProvider.of<ProductDetailsBloc>(context).state.query;
@@ -43,13 +42,30 @@ class _ProductsPageState extends State<ProductsPage> {
       }
     }
     });
-    
+
+    BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getUser());
     BlocProvider.of<ProductDetailsBloc>(context).add(ProductDetailsEvent.getProducts());
-    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var user = BlocProvider.of<ProductDetailsBloc>(context).state.user;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Products',
+          style: Theme.of(context).appBarTheme.titleTextStyle,
+        ),
+        leadingWidth: 100,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 32),
+            child: InkWell(
+              child: user?.image != null ? Image.network(user!.image, width: 32, height: 32, fit: BoxFit.cover,) : Text('-'),
+            ),
+          )
+        ],
+      ),
       body: BlocConsumer<ProductDetailsBloc, ProductDetailsState>(
         listener: (context, state) {
           state.failureOrSuccessOption.fold(

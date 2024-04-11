@@ -39,25 +39,13 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: AutoTabsScaffold(
-          backgroundColor: Colors.white,
+          // backgroundColor: Colors.white,
           // body: pages[_selectedPageIndex],
           routes: [
             ProductsRouter(),
             LogRouter(),
           ],
           bottomNavigationBuilder: (context, tabsRouter) {
-            context.router.addListener(
-              () {
-                print('PROMENA RUTE');
-                // context.router.
-                // print('ROUTE CHILD: ${context.router.current.router.currentPath}');
-              },
-            );
-            context.tabsRouter.addListener(
-              () {
-                print('TAB PROMENA');
-              },
-            );
             context.watchRouter.addListener(() {});
             return SizedBox(
               height: 80,
@@ -67,17 +55,17 @@ class _MainPageState extends State<MainPage> {
                   top: BorderSide(width: 1, color: Colors.black),
                 )),
                 child: BottomNavigationBar(
-                    selectedLabelStyle:
-                        const TextStyle(fontSize: 10, color: Colors.blue),
-                    unselectedLabelStyle:
-                        const TextStyle(fontSize: 10, color: Colors.black),
-                    backgroundColor: Colors.white,
-                    unselectedItemColor: Colors.black,
-                    selectedItemColor: Colors.blue,
+                    // selectedLabelStyle:
+                    //     const TextStyle(fontSize: 10, color: Theme.of(context).bo),
+                    // unselectedLabelStyle:
+                    //     const TextStyle(fontSize: 10, color: Colors.black),
+                    backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                    unselectedItemColor: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+                    selectedItemColor: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
                     currentIndex: tabsRouter.activeIndex,
                     onTap: tabsRouter.setActiveIndex,
                     type: BottomNavigationBarType.fixed,
-                    items: const [
+                    items: [
                       BottomNavigationBarItem(
                           activeIcon: Padding(
                             padding: EdgeInsets.only(bottom: 8),
@@ -87,7 +75,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 width: 30,
                                 height: 30,
-                                color: Colors.blue),
+                                color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor),
                           ),
                           icon: Padding(
                             padding: EdgeInsets.only(bottom: 10),
@@ -97,7 +85,7 @@ class _MainPageState extends State<MainPage> {
                               ),
                               width: 30,
                               height: 30,
-                              color: Colors.black,
+                              color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
                             ),
                           ),
                           label: 'Home'),
@@ -110,7 +98,7 @@ class _MainPageState extends State<MainPage> {
                                 ),
                                 width: 30,
                                 height: 30,
-                                color: Colors.blue),
+                                color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor),
                           ),
                           icon: Padding(
                             padding: EdgeInsets.only(bottom: 10),
@@ -120,10 +108,10 @@ class _MainPageState extends State<MainPage> {
                               ),
                               width: 30,
                               height: 30,
-                              color: Colors.black,
+                              color: Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
                             ),
                           ),
-                          label: 'Exposures'),
+                          label: 'Logs'),
                     ]),
               ),
             );
